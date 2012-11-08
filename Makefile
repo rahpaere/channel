@@ -8,7 +8,7 @@ clean:
 	rm -f $(targets)
 
 channel: channel.c channel.h
-	gcc -Wall -Wextra -g -I. -Wl,-rpath,. -Wl,-export-dynamic -o $@ $< -ldl
+	gcc -Wall -Wextra -g -I. -Wl,-rpath,. -Wl,-export-dynamic -o $@ $< -ldl -lev
 
 %.so: %.c channel.h
 	gcc -Wall -Wextra -g -I. -Wl,-rpath,. -Wl,-export-dynamic -shared -fPIC -o $@ $<

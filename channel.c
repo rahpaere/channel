@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <dlfcn.h>
+#include <ev.h>
 
 struct module {
 	struct module *next;
@@ -71,10 +72,13 @@ static void unload_modules(void)
 
 int main(int argc, char **argv)
 {
+	struct ev_loop *loop = EV_DEFAULT;
 	int i;
 
 	for (i = 1; i < argc; i++)
 		channel_lookup(argv[i]);
+
+	ev_run(loop, 0);
 
 	unload_modules();
 	return EXIT_SUCCESS;
